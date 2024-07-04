@@ -16,6 +16,9 @@ import {
   getMetadata,
   toClassName,
 } from './lib-franklin.js';
+import {
+  buildDevblogBlocks
+} from './devblog.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
@@ -287,6 +290,7 @@ function buildAutoBlocks(main) {
     }
     buildImageBlocks(main);
     buildNewsletterModal(main);
+    buildDevblogBlocks(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
