@@ -12,7 +12,7 @@ function loadWebComponents() {
   [
     //'author-card',
     //'tag-page',
-    //'posts-list',
+    'posts-list',
     'inline-gist'
   ].forEach(name => {
     if(document.querySelector(name)) {
@@ -72,7 +72,7 @@ function processGists(main) {
 }
 
 export async function buildDevblogBlocks(main) {
-  if(window.location.pathname.match(/^\/tagged\//)) {
+  if(window.location.pathname.match(/^\/en\/topics\//)) {
     //buildTagsPage(main);
   } else {
     //buildAuthorCardBlock(main);

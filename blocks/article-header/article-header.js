@@ -12,6 +12,7 @@ import {
 } from '../../scripts/lib-franklin.js';
 
 async function populateAuthorInfo(authorLink, imgContainer, url, name, eager = false) {
+  /* For now, keep the generated author link
   const resp = await fetch(`${url}.plain.html`);
   if (resp.ok) {
     const text = await resp.text();
@@ -42,6 +43,7 @@ async function populateAuthorInfo(authorLink, imgContainer, url, name, eager = f
     p.innerHTML = authorLink.innerHTML;
     authorLink.replaceWith(p);
   }
+  */
 }
 
 function openPopup(e) {

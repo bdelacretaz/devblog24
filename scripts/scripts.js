@@ -19,6 +19,7 @@ import {
 import {
   buildDevblogBlocks
 } from './devblog.js';
+import './query-index.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
@@ -216,17 +217,22 @@ function buildNewsletterModal(mainEl) {
 
 function buildArticleFeed(mainEl, type) {
   const div = document.createElement('div');
-  const title = mainEl.querySelector('h1, h2').textContent.trim();
-  const articleFeedEl = buildBlock('article-feed', [
-    [type, title],
-  ]);
-  div.append(articleFeedEl);
-  mainEl.append(div);
+  const title = mainEl.querySelector('h1, h2')?.textContent.trim();
+  if(title) {
+    const articleFeedEl = buildBlock('article-feed', [
+      [type, title],
+    ]);
+    div.append(articleFeedEl);
+    mainEl.append(div);
+  }
 }
 
 function buildAuthorHeader(mainEl) {
   const div = mainEl.querySelector('div');
   const heading = mainEl.querySelector('h1, h2');
+  if(!heading) {
+    return;
+  }
   const bio = heading.nextElementSibling;
   const picture = mainEl.querySelector('picture');
   const elArr = [[heading]];
@@ -271,7 +277,7 @@ function buildAutoBlocks(main) {
   removeStylingFromImages(main);
   try {
     buildHeroBlock(main);
-    if (getMetadata('publication-date') && !main.querySelector('.article-header')) {
+    if (getMetadata('m_date') && !main.querySelector('.article-header')) {
       buildArticleHeader(main);
       addArticleToHistory();
     }
@@ -281,7 +287,7 @@ function buildAutoBlocks(main) {
         buildArticleFeed(main, 'tags');
       }
     }
-    if (window.location.pathname.includes('/authors/')) {
+    if (window.location.pathname.includes('/en/authors/')) {
       buildAuthorHeader(main);
       buildSocialLinks(main);
       if (!document.querySelector('.article-feed')) {
