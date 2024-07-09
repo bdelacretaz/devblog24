@@ -11,7 +11,7 @@ function loadWebComponents() {
   // loads those which are found in the document.
   [
     //'author-card',
-    //'tag-page',
+    'article-tags',
     'posts-list',
     'inline-gist'
   ].forEach(name => {
@@ -24,14 +24,15 @@ function loadWebComponents() {
   })
 }
 
-/*
 function buildTagsBlock(main) {
   const tagsArray = [...document.head.querySelectorAll('meta[property="article:tag"]')].map((el) => el.content) || [];
-  const tagsBlock = buildBlock('tags', tagsArray.join(', '));
-  const title = main.querySelector('h1');
-  title?.parentNode.insertBefore(tagsBlock, title.nextSibling);
+  const atags = document.createElement('article-tags');
+  atags.setAttribute('tags', tagsArray.join(','));
+  const anchor = main.querySelector('h1');
+  anchor?.insertAdjacentElement('afterend', atags);
 }
 
+/*
 function buildAuthorCardBlock(main) {
   const title = main.querySelector('h1');
   const author = getMetadata('author');
@@ -44,22 +45,23 @@ function buildAuthorCardBlock(main) {
   }
 }
 
+*/
+
 function getTagFromUrl() {
   const path = window.location.pathname;
-  const result = path.match(/\/tagged\/(.*)$/);
+  const result = path.match(/\/topics\/(.*)$/);
   return result?.[1];
 }
 
-function buildTagsPage(main) {
+function buildTopicPage(main) {
   if(main.parentNode?.localName == 'body') {
     const tag = getTagFromUrl();
     const c = document.createElement('posts-list');
     c.setAttribute('tags', tag);
-    c.setAttribute('title', `${tag} tag`);
+    c.setAttribute('title', `topic: ${tag}`);
     main.append(c);
   }
 }
-*/
 
 // Gists are not separated as blocks in the original content, need
 // to process them inline
@@ -72,11 +74,11 @@ function processGists(main) {
 }
 
 export async function buildDevblogBlocks(main) {
-  if(window.location.pathname.match(/^\/en\/topics\//)) {
-    //buildTagsPage(main);
+  if(window.location.pathname.match(/^\/topics\//)) {
+    buildTopicPage(main);
   } else {
     //buildAuthorCardBlock(main);
-    //buildTagsBlock(main);
+    buildTagsBlock(main);
     processGists(main);
   }
   loadWebComponents();
