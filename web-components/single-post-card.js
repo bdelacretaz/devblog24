@@ -36,7 +36,7 @@ class SinglePostCard extends HTMLElement {
     if(image) {
       img.setAttribute('src', image);
     } else {
-      img.remove();
+      img.parentNode.remove();
     }
 
     t.querySelector('h3').textContent = this.getAttribute('title');

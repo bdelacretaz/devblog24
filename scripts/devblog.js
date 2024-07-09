@@ -86,7 +86,6 @@ export async function buildDevblogBlocks(main) {
   loadWebComponents();
 }
 
-/*
 // Extracts data from a block, using the first
 // column as names and second column as values
 export function getBlockData(block) {
@@ -99,4 +98,4 @@ export function getBlockData(block) {
     }
   });
   return result;
-}*/
+}
