@@ -6,7 +6,7 @@ class SinglePostCard extends HTMLElement {
   `;
   static {
     SinglePostCard.template.innerHTML = `
-      <a class='article-card-TODO'>
+      <a class='article-card'>
         <div class='article-card-image'>
           <img>
         </div>

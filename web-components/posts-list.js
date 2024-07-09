@@ -11,7 +11,7 @@ class PostsList extends HTMLElement {
     }
   `;
   static {
-    PostsList.template.innerHTML = `<ul class='article-cards'></ul>`;
+    PostsList.template.innerHTML = `<div class='article-cards'></div>`;
   }
   static {
     if(document.adoptedStyleSheets) {
@@ -56,11 +56,11 @@ class PostsList extends HTMLElement {
     return spc;
   }
 
-  #addPostsByAttributes(index, ul) {
+  #addPostsByAttributes(index, container) {
     index.data?.filter(p => p.date && this.matchTags(p) && this.matchAuthor(p)).slice(0,this.limit).forEach(entry => {
-      const li = document.createElement('li');
+      const li = document.createElement('div');
       li.append(this.#buildSinglePostCard(entry));
-      ul.append(li);
+      container.append(li);
     })
   }
 
@@ -71,7 +71,7 @@ class PostsList extends HTMLElement {
       selected.push(new URL(a.href).pathname);
     });
     index.data?.filter(p => selected.includes(p.path)).forEach(entry => {
-      const li = document.createElement('li');
+      const li = document.createElement('div');
       li.append(this.#buildSinglePostCard(entry));
       ul.append(li);
     });
@@ -95,11 +95,14 @@ class PostsList extends HTMLElement {
     this.textOnly = this.getAttribute('text-only') == 'true';
 
     const n = PostsList.template.content.cloneNode(true);
-    if(this.selectLinks) {
-      this.#addPostsFromLinks(index, n.querySelector('ul'));
+    const container = n.querySelector('div[class=article-cards]');
+    if(!container) {
+      console.error('missing container');
+    } else if(this.selectLinks) {
+      this.#addPostsFromLinks(index, container);
       this.replaceChildren(n);
     } else {
-      this.#addPostsByAttributes(index, n.querySelector('ul'));
+      this.#addPostsByAttributes(index, container);
       this.append(n);
     }
     if(this.textOnly) {
