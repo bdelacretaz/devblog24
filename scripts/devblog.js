@@ -56,10 +56,12 @@ function getTagFromUrl() {
 function buildTopicPage(main) {
   if(main.parentNode?.localName == 'body') {
     const tag = getTagFromUrl();
+    const newMain = document.createElement('main');
     const c = document.createElement('posts-list');
     c.setAttribute('tags', tag);
     c.setAttribute('title', `topic: ${tag}`);
-    main.append(c);
+    newMain.append(c);
+    main.replaceWith(newMain);
   }
 }
 
