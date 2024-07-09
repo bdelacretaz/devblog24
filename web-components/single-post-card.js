@@ -13,8 +13,6 @@ class SinglePostCard extends HTMLElement {
         <div class='article-card-body'>
           <div class='article-card-category'></div>
           <h3></h3>
-          <div class='article-card-description'></div>
-          <div class='article-card-date'></div>
         </div>
       </a>
     `;

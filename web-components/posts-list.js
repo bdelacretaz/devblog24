@@ -58,9 +58,7 @@ class PostsList extends HTMLElement {
 
   #addPostsByAttributes(index, container) {
     index.data?.filter(p => p.date && this.matchTags(p) && this.matchAuthor(p)).slice(0,this.limit).forEach(entry => {
-      const li = document.createElement('div');
-      li.append(this.#buildSinglePostCard(entry));
-      container.append(li);
+      container.append(this.#buildSinglePostCard(entry));
     })
   }
 

@@ -134,8 +134,8 @@ export function getLinkForTopic(topic, path) {
  * @param {Element} picture picture element
  */
 function getImageCaption(picture) {
-  const parentEl = picture.parentNode;
-  const parentSiblingEl = parentEl.nextElementSibling;
+  const parentEl = picture?.parentNode;
+  const parentSiblingEl = parentEl?.nextElementSibling;
   return (parentSiblingEl && parentSiblingEl.firstChild.nodeName === 'EM' ? parentSiblingEl : undefined);
 }
 
@@ -176,7 +176,7 @@ function buildArticleHeader(mainEl) {
     [h1],
     [`<p><a href="${authorURL}">${author}</a></p>
       <p>${publicationDate}</p>`],
-    [{ elems: [picture.closest('p'), getImageCaption(picture)] }],
+    [{ elems: [picture?.closest('p'), getImageCaption(picture)] }],
   ]);
   div.append(articleHeaderBlockEl);
   mainEl.prepend(div);
