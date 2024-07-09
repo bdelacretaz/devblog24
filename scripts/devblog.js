@@ -59,9 +59,11 @@ function buildTopicPage(main) {
     const newMain = document.createElement('main');
     const c = document.createElement('posts-list');
     c.setAttribute('tags', tag);
-    c.setAttribute('title', `topic: ${tag}`);
+    const title = `topic: ${tag}`;
+    c.setAttribute('title', title);
     newMain.append(c);
     main.replaceWith(newMain);
+    document.title = title;
   }
 }
 
