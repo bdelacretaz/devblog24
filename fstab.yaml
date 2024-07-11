@@ -2,5 +2,5 @@ mountpoints:
   /: https://drive.google.com/drive/folders/17bH6mtRACYdDbkuf8UeHqOnbWwCxmCFx
 
 folders:
-  /en/authors: /generic-author
-  /en/topics: /generic-topics
+  /authors: /generic-author
+  /topics: /generic-topics

@@ -1,3 +1,4 @@
+
 import {
   sampleRUM,
   buildBlock,
@@ -98,8 +99,10 @@ export function getLanguage() {
  * @returns {string} The computed root path
  */
 export function getRootPath() {
-  const loc = getLanguage();
-  return `/${loc}`;
+  // TODO for now we ignore languages
+  //const loc = getLanguage();
+  //return `/${loc}`;
+  return '';
 }
 
 /**
@@ -698,6 +701,8 @@ export function buildFigure(blockEl) {
  * @returns {string} The formatted card date
  */
 export function formatLocalCardDate(date) {
+  // TODO hack for missing date
+  date = date ? date : '3600';
   let jsDate = date;
   if (!date.includes('-')) {
     // number case, coming from Excel
@@ -725,6 +730,28 @@ export function formatLocalCardDate(date) {
   return dateString;
 }
 
+/** Fix missing data from developers blog index  */
+function addDevBlogDefaults(article) {
+  const missing = what => `(missing ${what})`;
+  const defaults = {
+    title: missing('title'),
+    description: missing('description'),
+    image: missing('image'),
+    date: missing('date')
+  }
+  return { ...defaults, ...article };
+}
+
+function getImagePath(imageURL) {
+  let result = imageURL;
+  try {
+    result = JSON.parse(imageURL)[0];
+  } catch(e) {
+    console.error('Unexpected image data format', imageURL);
+  }
+  return result;
+}
+
 /**
  * Build article card
  * @param {Element} article The article data to be placed in card.
@@ -733,11 +760,11 @@ export function formatLocalCardDate(date) {
 export function buildArticleCard(article, type = 'article', eager = false) {
   const {
     title, description, image, imageAlt, date,
-  } = article;
+  } = addDevBlogDefaults(article);
 
   const path = article.path.split('.')[0];
 
-  const picture = createOptimizedPicture(image, imageAlt || title, eager, [{ width: '750' }]);
+  const picture = createOptimizedPicture(getImagePath(image), imageAlt || title, eager, [{ width: '750' }]);
   const pictureTag = picture.outerHTML;
   const card = document.createElement('a');
   card.className = `${type}-card`;
