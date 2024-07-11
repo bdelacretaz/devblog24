@@ -1,4 +1,6 @@
-import './single-post-card.js';
+import {
+  buildArticleCard
+} from '../scripts/scripts.js';
 
 class PostsList extends HTMLElement {
   static template = document.createElement('template');
@@ -45,20 +47,9 @@ class PostsList extends HTMLElement {
     return result;
   }
 
-  #buildSinglePostCard(entry) {
-    const spc = document.createElement('single-post-card');
-    spc.setAttribute('path', entry.path);
-    spc.setAttribute('title', entry.title);
-    spc.setAttribute('author', entry.author);
-    if(!this.textOnly) {
-      spc.setAttribute('image', this.cleanupImage(entry.image));
-    }
-    return spc;
-  }
-
   #addPostsByAttributes(index, container) {
     index.data?.filter(p => p.date && this.matchTags(p) && this.matchAuthor(p)).slice(0,this.limit).forEach(entry => {
-      container.append(this.#buildSinglePostCard(entry));
+      container.append(buildArticleCard(entry));
     })
   }
 
@@ -70,7 +61,7 @@ class PostsList extends HTMLElement {
     });
     index.data?.filter(p => selected.includes(p.path)).forEach(entry => {
       const li = document.createElement('div');
-      li.append(this.#buildSinglePostCard(entry));
+      li.append(buildArticleCard(entry));
       ul.append(li);
     });
   }

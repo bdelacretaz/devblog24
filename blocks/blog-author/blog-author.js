@@ -19,7 +19,7 @@ export async function getAuthorName(id) {
 
 export function getAuthorFromUrl() {
   const path = window.location.pathname;
-  const result = path.match(/\/en\/authors\/(.*)$/);
+  const result = path.match(/\/authors\/(.*)$/);
   return result?.[1];
 }
 
