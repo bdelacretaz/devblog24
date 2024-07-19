@@ -78,6 +78,9 @@ function processGists(main) {
 }
 
 export async function buildDevblogBlocks(main) {
+  // Moved to another repo
+  window.location.replace('https://main--ablog--bdelacretaz.hlx.live/');
+  /*
   if(window.location.pathname.match(/^\/topics\//)) {
     buildTopicPage(main);
   } else {
@@ -86,6 +89,7 @@ export async function buildDevblogBlocks(main) {
     processGists(main);
   }
   loadWebComponents();
+  */
 }
 
 // Extracts data from a block, using the first
